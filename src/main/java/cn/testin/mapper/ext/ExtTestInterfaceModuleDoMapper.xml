@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.testin.mapper.ext.ExtTestInterfaceModuleDoMapper">
+    <select id="getByProjectAndProtocol" resultType="cn.testin.pojo.dto.TestInterfaceModuleDoDTO">
+        select
+        <include refid="cn.testin.mapper.TestInterfaceModuleDoMapper.Base_Column_List"/>
+        from test_interface_module
+        where test_interface_module.project_id = #{projectId}
+        and test_interface_module.protocol = #{protocol}
+    </select>
+</mapper>

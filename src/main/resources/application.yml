@@ -1,0 +1,25 @@
+spring:
+  profiles:
+    active: dev
+server:
+  port: 8526
+
+mybatis:
+  configuration:
+    cache-enabled: true
+    lazy-loading-enabled: false
+    aggressive-lazy-loading: true
+    multiple-result-sets-enabled: true
+    use-column-label: true
+    auto-mapping-behavior: full
+    default-statement-timeout: 25000
+    map-underscore-to-camel-case: true
+
+logging:
+  level:
+    org.springframework.boot.autoconfigure: error
+    org.springframework.web: debug
+    cn.testin: debug
+    com.zaxxer.hikari.pool.HikariPool: warn
+
+

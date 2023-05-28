@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.testin.mapper.ext.ExtTestInterfaceDoMapper">
+    <select id="getNextNum" resultType="cn.testin.pojo.domain.TestInterfaceDo">
+        SELECT *
+        FROM test_interface
+        WHERE test_interface.project_id = #{projectId}
+        ORDER BY interface_number DESC LIMIT 1;
+    </select>
+
+    <select id="list" resultType="cn.testin.pojo.vo.result.TestInterfaceResult">
+        select
+        <include refid="cn.testin.mapper.TestInterfaceDoMapper.Base_Column_List"/>
+        from test_interface
+        <include refid="queryWhereCondition"/>
+        ORDER BY create_time DESC
+    </select>
+
+
+    <sql id="queryWhereCondition">
+        <where>
+            <if test="request.protocol != null">
+                AND test_interface.protocol = #{request.protocol}
+            </if>
+            <if test="request.name != null">
+                AND (test_interface.name like CONCAT('%',#{request.name},'%')
+                or test_interface.tags like CONCAT('%',#{request.name},'%')
+                or test_interface.interface_number like CONCAT('%',#{request.name},'%'))
+            </if>
+            <if test="request.moduleIds != null and request.moduleIds.size() > 0">
+                AND test_interface.module_id in
+                <foreach collection="request.moduleIds" item="id" separator="," open="(" close=")">
+                    #{id}
+                </foreach>
+            </if>
+        </where>
+    </sql>
+
+</mapper>

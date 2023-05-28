@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.testin.mapper.ext.ExtTestModuleDoMapper">
+    <select id="getByProjectAndProtocolAndType" resultType="cn.testin.pojo.dto.TestModuleDoDTO">
+        select
+        <include refid="cn.testin.mapper.TestModuleDoMapper.Base_Column_List"/>
+        from test_module
+        where test_module.project_id = #{projectId}
+        and test_module.protocol = #{protocol}
+        and test_module.type = #{type}
+        and test_module.level = 1
+    </select>
+
+    <select id="listByParentId" resultType="cn.testin.pojo.dto.TestModuleDoDTO">
+        select
+        <include refid="cn.testin.mapper.TestModuleDoMapper.Base_Column_List"/>
+        from test_module
+        where test_module.parent_id = #{parentId}
+    </select>
+</mapper>

@@ -1,0 +1,34 @@
+spring:
+  application:
+    name: api-cloud
+  mvc:
+    throw-exception-if-no-handler-found: true
+  datasource:
+    type: com.zaxxer.hikari.HikariDataSource
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://47.92.76.181:3309/testin_api_db?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8&allowMultiQueries=true
+    #url: jdbc:mysql://localhost:3306/testin?useUnicode=true&characterEncoding=utf-8&useSSL=false&serverTimezone=GMT%2B8
+    username: root
+    password: 123456
+    hikari:
+      maximum-pool-size: 20
+      auto-commit: true
+      idle-timeout: 10000
+      pool-name: ApiCloudHikariCP
+      max-lifetime: 120000
+      connection-timeout: 30000
+      connection-test-query: SELECT 1
+
+  servlet:
+    multipart:
+      max-file-size: 500MB
+      max-request-size: 500MB
+  freemarker:
+    cache: false    #页面不加载缓存，修改即时生效
+    prefer-file-system-access: false #不使用文件系统优先，而使用classpath下的资源文件优先，解决打jar包运行后，出现的异常问题
+
+#配置 jmeterconfig.home/bin/jmeter.properties 等文件的位置（运行jmeter必须的配置）
+# jmeterhome所在位置下必须有jmeter内置函数的文件夹 jmeterconfig.home/lib/ext
+jmeterconfig:
+  home: F:\\CodeWorkplace\\testin\\Api-Cloud\\src\\main\\resources\\jmeter
+  image:

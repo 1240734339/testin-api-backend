@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.testin.mapper.ext.ExtTestScriptDoMapper">
+
+    <select id="checkName" resultType="cn.testin.pojo.domain.TestScriptDo">
+        select * from test_script
+        <where>
+            <if test="request.name !='' || request.name != null">
+                and name =#{request.name}
+            </if>
+            <if test="request.interfaceId !='' || request.interfaceId != null">
+                and interface_id =#{request.interfaceId}
+            </if>
+            <if test="request.id !='' || request.id != null">
+                and id !=#{request.id}
+            </if>
+
+        </where>
+    </select>
+
+    <select id="getNextNum" resultType="cn.testin.pojo.domain.TestScriptDo">
+        SELECT *
+        FROM test_script
+        WHERE test_script.interface_id = #{interfaceId}
+        ORDER BY script_number DESC LIMIT 1;
+    </select>
+
+    <select id="listSimple" resultType="cn.testin.pojo.dto.TestScriptDTO">
+        SELECT
+            t.id,
+            t.project_id,
+            t.name,
+            t.status,
+            t.interface_id,
+            t.description,
+            t.create_user_id,
+            t.update_user_id,
+            t.create_time,
+            t.update_time,
+            t.script_number,
+            t.tags,
+            t.status,
+            t.protocol
+        FROM
+            test_script t
+        WHERE 1=1
+        <if test="request.protocol != null and request.protocol!=''">
+            and t.protocol = #{request.protocol}
+        </if>
+        <if test="request.projectId != null and request.projectId!=''">
+            and t.project_id = #{request.projectId}
+        </if>
+        ORDER BY create_time DESC;
+    </select>
+
+</mapper>
